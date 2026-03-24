@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Video Universe</title>
+    <style>
+        /* CSS Variables for AI/Neon Theme */
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-pink: #ff00c8;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        /* Animated Gradient Background */
+        body { 
+            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #140024);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glassmorphism Navbar */
+        nav { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 20px 50px; position: sticky; top: 0; z-index: 100; 
+            background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        nav .logo { font-size: 28px; font-weight: 900; color: #fff; text-shadow: 0 0 10px var(--neon-blue); letter-spacing: 1px; }
+        nav .logo span { color: var(--neon-pink); text-shadow: 0 0 10px var(--neon-pink); }
+        nav ul { list-style: none; display: flex; gap: 20px; }
+        nav ul li a { 
+            color: #fff; text-decoration: none; cursor: pointer; padding: 8px 15px; 
+            border-radius: 20px; transition: 0.4s; font-weight: 500;
+        }
+        nav ul li a:hover, nav ul li a.active { 
+            background: var(--neon-blue); color: #000; box-shadow: 0 0 15px var(--neon-blue); 
+        }
+
+        .page-section { display: none; padding: 60px 50px; min-height: 80vh; animation: zoomIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .active-section { display: block; }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        /* Home Page */
+        #home { text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 80vh; }
+        #home h1 { font-size: 60px; background: -webkit-linear-gradient(right, var(--neon-blue), var(--neon-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .btn { 
+            padding: 15px 35px; background: transparent; color: #fff; border: 2px solid var(--neon-pink); 
+            border-radius: 30px; cursor: pointer; font-size: 18px; margin-top: 30px; font-weight: bold;
+            transition: 0.4s; position: relative; overflow: hidden;
+        }
+        .btn:hover { background: var(--neon-pink); box-shadow: 0 0 20px var(--neon-pink); color: #000; transform: translateY(-3px); }
+
+        /* Gallery Page (Glass Cards) */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 30px; }
+        .video-card { 
+            background: var(--glass-bg); padding: 15px; border-radius: 15px; 
+            backdrop-filter: blur(10px); border: 1px solid var(--glass-border); 
+            transition: 0.4s; box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .video-card:hover { transform: translateY(-10px); border-color: var(--neon-blue); box-shadow: 0 0 25px rgba(0, 243, 255, 0.3); }
+        iframe { width: 100%; height: 220px; border-radius: 10px; border: none; }
+        .video-title { margin-top: 15px; font-size: 20px; font-weight: bold; color: var(--neon-blue); }
+        .video-desc { font-size: 14px; color: #ccc; margin-top: 8px; line-height: 1.5; }
+
+        /* About & Contact Boxes */
+        .content-box { 
+            background: var(--glass-bg); backdrop-filter: blur(10px); padding: 40px; 
+            border-radius: 15px; text-align: center; max-width: 800px; margin: 0 auto; 
+            border: 1px solid var(--glass-border); box-shadow: 0 0 20px rgba(255,0,200,0.2);
+        }
+        input, textarea { 
+            width: 100%; padding: 15px; margin-bottom: 20px; border-radius: 8px; 
+            background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); color: #fff; font-size: 16px; 
+            transition: 0.3s;
+        }
+        input:focus, textarea:focus { outline: none; border-color: var(--neon-blue); box-shadow: 0 0 10px var(--neon-blue); }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">AI<span>Tube</span></div>
+        <ul>
+            <li><a class="nav-link active" onclick="switchPage('home', this)">Home</a></li>
+            <li><a class="nav-link" onclick="switchPage('gallery', this)">Gallery</a></li>
+            <li><a class="nav-link" onclick="switchPage('about', this)">About</a></li>
+            <li><a class="nav-link" onclick="switchPage('contact', this)">Contact</a></li>
+            <li><a href="/login" style="color: var(--neon-pink); border: 1px solid var(--neon-pink);">🔐 Admin</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="page-section active-section">
+        <h1>Experience the Future of Video</h1>
+        <p style="margin-top: 15px; color:#ddd; font-size: 20px; max-width: 600px;">Immerse yourself in a colorful, interactive, and ad-free universe tailored just for you.</p>
+        <button class="btn" onclick="switchPage('gallery', document.querySelectorAll('.nav-link')[1])">Launch Gallery 🚀</button>
+    </section>
+
+    <section id="gallery" class="page-section">
+        <h2 style="text-align: center; font-size: 40px; text-shadow: 0 0 10px var(--neon-blue);">Explore Videos</h2>
+        <div class="gallery-grid">
+            {% for video in videos %}
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/{{ video.yt_id }}?rel=0" allowfullscreen></iframe>
+                <div class="video-title">{{ video.title }}</div>
+                <div class="video-desc">{{ video.description }}</div>
+            </div>
+            {% else %}
+            <p style="text-align: center; width: 100%; color: #aaa; font-size: 18px;">Database khali hai. Admin panel se videos add karein!</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="about" class="page-section">
+        <h2 style="text-align: center; font-size: 40px; margin-bottom: 30px; text-shadow: 0 0 10px var(--neon-pink);">About Platform</h2>
+        <div class="content-box">
+            <p style="font-size: 18px; line-height: 1.8; color: #ddd;">Ye ek next-generation Web Application hai jo Python (Flask) aur Modern Glassmorphism CSS par based hai. Isme ek secure admin backend hai jisse real-time mein UI update hota hai.</p>
+        </div>
+    </section>
+
+    <section id="contact" class="page-section">
+        <h2 style="text-align: center; font-size: 40px; margin-bottom: 30px; text-shadow: 0 0 10px var(--neon-blue);">Connect With Us</h2>
+        <div class="content-box">
+            <form onsubmit="event.preventDefault(); alert('🚀 Signal sent successfully!'); this.reset();">
+                <input type="text" placeholder="Your Hacker Name" required>
+                <input type="email" placeholder="Your Email Address" required>
+                <textarea rows="4" placeholder="Enter your command..." required></textarea>
+                <button type="submit" class="btn" style="width: 100%; margin-top: 0;">Send Signal ⚡</button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        function switchPage(pageId, element) {
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active-section'));
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active-section');
+            element.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

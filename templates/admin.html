@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <style>
+        body { margin: 0; padding: 40px; background: #0b0f19; color: #fff; font-family: sans-serif; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        h1 { color: #ff00c8; text-shadow: 0 0 10px #ff00c8; }
+        .logout-btn { background: #ff0055; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; box-shadow: 0 0 10px #ff0055; transition: 0.3s; }
+        .logout-btn:hover { background: #fff; color: #ff0055; }
+        
+        .container { max-width: 900px; margin: auto; }
+        .card { background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 30px; backdrop-filter: blur(10px); }
+        
+        form { display: flex; flex-direction: column; gap: 15px; }
+        input, textarea { padding: 12px; border-radius: 5px; border: 1px solid #444; background: #111; color: #fff; transition: 0.3s; }
+        input:focus, textarea:focus { border-color: #00f3ff; outline: none; box-shadow: 0 0 10px #00f3ff; }
+        button { padding: 15px; background: #00f3ff; color: #000; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; transition: 0.3s; font-size: 16px; }
+        button:hover { background: #fff; box-shadow: 0 0 15px #00f3ff; }
+
+        .video-item { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.5); padding: 15px; border-radius: 10px; margin-bottom: 15px; border-left: 4px solid #00f3ff; }
+        .delete-btn { background: transparent; border: 2px solid #ff0055; color: #ff0055; text-decoration: none; padding: 8px 15px; border-radius: 5px; font-weight: bold; transition: 0.3s; }
+        .delete-btn:hover { background: #ff0055; color: #fff; box-shadow: 0 0 10px #ff0055; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚙️ Control Center</h1>
+            <div>
+                <a href="/" target="_blank" style="color: #00f3ff; margin-right: 20px; text-decoration: none;">View Site ↗</a>
+                <a href="/logout" class="logout-btn">Logout</a>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2 style="margin-bottom: 15px; color: #00f3ff;">+ Add New Video</h2>
+            <form action="/add" method="POST">
+                <input type="text" name="title" placeholder="Enter Video Title" required>
+                <input type="text" name="link" placeholder="Paste YouTube Link Here..." required>
+                <textarea name="description" rows="3" placeholder="Enter a cool description..."></textarea>
+                <button type="submit">UPLOAD TO GALLERY 🚀</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2 style="margin-bottom: 15px; color: #ff00c8;">Manage Uploads</h2>
+            {% for video in videos %}
+            <div class="video-item">
+                <div>
+                    <h3 style="margin: 0; color: #00f3ff;">{{ video.title }}</h3>
+                    <p style="margin: 5px 0 0 0; color: #aaa; font-size: 14px;">{{ video.description }}</p>
+                </div>
+                <a href="/delete/{{ video.id }}" class="delete-btn" onclick="return confirm('Video delete karein?');">DELETE</a>
+            </div>
+            {% else %}
+            <p style="color: #888; text-align: center;">No videos uploaded yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

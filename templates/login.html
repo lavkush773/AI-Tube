@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login</title>
+    <style>
+        body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: #0b0f19; font-family: sans-serif; color: #fff; }
+        .login-box { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); padding: 40px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 0 30px rgba(0, 243, 255, 0.2); width: 350px; text-align: center; }
+        h2 { margin-bottom: 30px; color: #00f3ff; text-shadow: 0 0 10px #00f3ff; }
+        input { width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 5px; border: none; background: rgba(0,0,0,0.6); color: #fff; border: 1px solid #333; transition: 0.3s; box-sizing: border-box; }
+        input:focus { outline: none; border-color: #00f3ff; box-shadow: 0 0 10px #00f3ff; }
+        button { width: 100%; padding: 12px; background: #00f3ff; color: #000; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; transition: 0.3s; font-size: 16px; }
+        button:hover { background: #fff; box-shadow: 0 0 15px #00f3ff; }
+        .error { color: #ff00c8; margin-bottom: 15px; font-weight: bold; }
+        .back-link { display: block; margin-top: 20px; color: #888; text-decoration: none; font-size: 14px; }
+        .back-link:hover { color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>🔒 Access Terminal</h2>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="error">{{ messages[0] }}</div>
+          {% endif %}
+        {% endwith %}
+        <form action="/login" method="POST">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">LOGIN</button>
+        </form>
+        <a href="/" class="back-link">&larr; Return to Website</a>
+    </div>
+</body>
+</html>
